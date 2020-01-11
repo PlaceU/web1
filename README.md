@@ -2,27 +2,23 @@
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
     </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
+    <h1 align="center">PlaceU</h1>
     <br>
 </p>
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
+A aplicação “PlaceU” irá fazer uma gestão de salas de reuniões de uma empresa,
+no que toca a requisição e disponibilidade das mesmas.
+Vai ser composta por uma aplicação web, onde os administradores poderão
+criar, apagar ou editar as salas.
 
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
+## Install Steps
+ - Create [VHost](#vhost) 'C:\xampp\apache\conf\extra\httpd-vhosts'
+ - init.bat
+ - composer install
+ - Update dbname in 'common/config/main-local.php'
+ - yii migrate
 
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
-
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
-
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Build Status](https://travis-ci.com/yiisoft/yii2-app-advanced.svg?branch=master)](https://travis-ci.com/yiisoft/yii2-app-advanced)
-
-DIRECTORY STRUCTURE
--------------------
+## DIRECTORY STRUCTURE
 
 ```
 common
@@ -57,4 +53,60 @@ frontend
     widgets/             contains frontend widgets
 vendor/                  contains dependent 3rd-party packages
 environments/            contains environment-based overrides
+```
+
+## <a name="vhost"/>Virtual Hosts
+
+```
+<VirtualHost *:80>
+       ServerName admin.placeu.test
+       DocumentRoot "C:\xampp\htdocs\web\backend\web"
+
+       <Directory "C:\xampp\htdocs\web\backend\web">
+            # use mod_rewrite for pretty URL support
+            RewriteEngine on
+            # If a directory or a file exists, use the request directly
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteCond %{REQUEST_FILENAME} !-d
+            # Otherwise forward the request to index.php
+            RewriteRule . index.php
+
+            # use index.php as index file
+            DirectoryIndex index.php
+
+            # ...other settings...
+            # Apache 2.4
+            Require all granted
+
+            ## Apache 2.2
+            # Order allow,deny
+            # Allow from all
+        </Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+       ServerName placeu.test
+       DocumentRoot "C:\xampp\htdocs\web\frontend\web"
+
+        <Directory "C:\xampp\htdocs\web\frontend\web">
+            # use mod_rewrite for pretty URL support
+            RewriteEngine on
+            # If a directory or a file exists, use the request directly
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteCond %{REQUEST_FILENAME} !-d
+            # Otherwise forward the request to index.php
+            RewriteRule . index.php
+
+            # use index.php as index file
+            DirectoryIndex index.php
+
+            # ...other settings...
+            # Apache 2.4
+            Require all granted
+
+            ## Apache 2.2
+            # Order allow,deny
+            # Allow from all
+        </Directory>
+</VirtualHost> 
 ```
