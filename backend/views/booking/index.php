@@ -26,8 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'ID',
             'RoomID',
             'UserID',
-            'Start',
-            'Stop',
+            'CheckIn',
+            'CheckOut',
             //'CreatedAt',
 
             ['class' => 'yii\grid\ActionColumn'],

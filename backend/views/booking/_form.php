@@ -16,9 +16,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'UserID')->textInput() ?>
 
-    <?= $form->field($model, 'Start')->textInput() ?>
+    <?= $form->field($model, 'CheckIn')->textInput() ?>
 
-    <?= $form->field($model, 'Stop')->textInput() ?>
+    <?= $form->field($model, 'CheckOut')->textInput() ?>
 
     <?= $form->field($model, 'CreatedAt')->textInput() ?>
 
