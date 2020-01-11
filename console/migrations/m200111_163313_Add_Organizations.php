@@ -23,11 +23,12 @@ class m200111_163313_Add_Organizations extends Migration
 
             CREATE TABLE OrganizationMember
             (
-                OrganizationID INT NOT NULL UNIQUE,
-                UserID INT NOT NULL UNIQUE,
+                OrganizationID INT NOT NULL,
+                UserID INT NOT NULL,
                 CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (UserID) REFERENCES User (ID) ON DELETE CASCADE,
-                FOREIGN KEY (OrganizationID) REFERENCES Organization (ID) ON DELETE CASCADE
+                FOREIGN KEY (OrganizationID) REFERENCES Organization (ID) ON DELETE CASCADE,
+                CONSTRAINT UC_OrganizationMember UNIQUE (OrganizationID,UserID)
             );
         ");
     }
