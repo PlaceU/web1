@@ -17,6 +17,7 @@ criar, apagar ou editar as salas.
  - composer install
  - Update dbname in 'common/config/main-local.php'
  - yii migrate
+ - yii migrate --migrationPath=@yii/rbac/migrations
 
 ## DIRECTORY STRUCTURE
 
