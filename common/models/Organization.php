@@ -72,4 +72,15 @@ class Organization extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Room::className(), ['OrganizationID' => 'ID']);
     }
+
+    /**
+     * Finds user by id
+     *
+     * @param int $id
+     * @return static|null
+     */
+    public static function findByUsername($id)
+    {
+        return static::findOne(['id' => $id]);
+    }
 }

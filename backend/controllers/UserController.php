@@ -8,7 +8,8 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\rbac\DbManager;
+use yii\web\ForbiddenHttpException;
 /**
  * UserController implements the CRUD actions for User model.
  */
@@ -25,8 +26,19 @@ class UserController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+                //'roles' => ['admin'],
             ],
         ];
+    }
+
+    public function beforeAction ( $action ){
+        if (Yii::$app->user->can("admin")){
+            return true;
+        }
+        else
+        {
+            throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.')); 
+        }
     }
 
     /**
@@ -38,7 +50,7 @@ class UserController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => User::find(),
         ]);
-
+   
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);

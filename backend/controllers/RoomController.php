@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\ForbiddenHttpException;
 
 /**
  * RoomController implements the CRUD actions for Room model.
@@ -27,6 +28,16 @@ class RoomController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function beforeAction ( $action ){
+        if (Yii::$app->user->can("admin")){
+            return true;
+        }
+        else
+        {
+            throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.')); 
+        }
     }
 
     /**
