@@ -5,17 +5,14 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "booking".
+ * This is the model class for table "Booking".
  *
  * @property int $ID
  * @property int $RoomID
  * @property int $UserID
- * @property string $Start
- * @property string $Stop
+ * @property string $CheckIn
+ * @property string $CheckOut
  * @property string $CreatedAt
- *
- * @property User $user
- * @property Room $room
  */
 class Booking extends \yii\db\ActiveRecord
 {
@@ -24,7 +21,7 @@ class Booking extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'booking';
+        return 'Booking';
     }
 
     /**
@@ -35,7 +32,7 @@ class Booking extends \yii\db\ActiveRecord
         return [
             [['RoomID', 'UserID'], 'required'],
             [['RoomID', 'UserID'], 'integer'],
-            [['Start', 'Stop', 'CreatedAt'], 'safe'],
+            [['CheckIn', 'CheckOut', 'CreatedAt'], 'safe'],
             [['UserID'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['UserID' => 'id']],
             [['RoomID'], 'exist', 'skipOnError' => true, 'targetClass' => Room::className(), 'targetAttribute' => ['RoomID' => 'ID']],
         ];
@@ -50,25 +47,9 @@ class Booking extends \yii\db\ActiveRecord
             'ID' => 'ID',
             'RoomID' => 'Room ID',
             'UserID' => 'User ID',
-            'Start' => 'Start',
-            'Stop' => 'Stop',
+            'CheckIn' => 'Check In',
+            'CheckOut' => 'Check Out',
             'CreatedAt' => 'Created At',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'UserID']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRoom()
-    {
-        return $this->hasOne(Room::className(), ['ID' => 'RoomID']);
     }
 }
