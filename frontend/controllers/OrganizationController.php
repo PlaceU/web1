@@ -72,6 +72,12 @@ class OrganizationController extends Controller
         $model = new Organization();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $member = new OrganizationMember();
+            $member->UserID = User::findByUsername(Yii::$app->user->identity->username)->id;
+            $member->OrganizationID = $model->ID;
+            $member->save();
+
             return $this->redirect(['view', 'id' => $model->ID]);
         }
 
