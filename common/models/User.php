@@ -209,4 +209,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrganizations()
+    {
+        return $this->hasMany(Organization::className(), ['id' => 'OrganizationID'])->viaTable('organizationmember', ['UserID' => 'id']);
+    }
 }
