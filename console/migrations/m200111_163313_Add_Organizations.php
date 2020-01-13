@@ -16,7 +16,7 @@ class m200111_163313_Add_Organizations extends Migration
             CREATE TABLE Organization
             (
                 ID INT NOT NULL AUTO_INCREMENT,
-                Name VARCHAR(64) NOT NULL,
+                Name VARCHAR(64) NOT NULL UNIQUE,
                 CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY (ID)
             );
