@@ -11,7 +11,7 @@ use common\models\OrganizationMember;
  */
 class OrganizationMemberRule extends Rule
 {
-    public $name = 'isMember';
+    public $name = 'manageOrganization';
 
     /**
      * @param string|int $user the user ID.
@@ -21,6 +21,11 @@ class OrganizationMemberRule extends Rule
      */
     public function execute($user, $item, $params)
     {
-        return isset($params['UserID']) && isset($params['UserID']) ? in_array(User::findIdentity($params['UserID']), Organization::findById($params['OrganizationID'])->getUsers()) : false;
+        if (!isset($params['UserID']) || !isset($params['OrganizationID'])){
+            return false;
+        }
+
+        $user = User::findIdentity($params['UserID']);
+        return $user->isMember($params['OrganizationID']);
     }
 }

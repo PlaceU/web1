@@ -10,6 +10,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\ForbiddenHttpException;
 
 
 /**
@@ -30,6 +31,29 @@ class OrganizationController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function beforeAction ( $action ){
+        if (Yii::$app->user->isGuest){
+            throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.')); 
+        }
+
+        if (!isset( $_GET['id'] )){
+            return true;
+        }
+
+        $request = Yii::$app->request;
+        $OrganizationID = $request->get('id');
+
+        $user = User::findIdentity(Yii::$app->user->identity->id);
+
+        if ($user->isMember($OrganizationID)){
+            return true;
+        }
+        else
+        {
+            throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.')); 
+        }
     }
 
     /**
