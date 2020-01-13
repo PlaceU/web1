@@ -6,6 +6,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use yii\web\ForbiddenHttpException;
 
 /**
  * Site controller
@@ -76,7 +77,12 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            if (Yii::$app->user->can("admin")){
+                return $this->goBack();
+            }else {
+                Yii::$app->user->logout();
+                throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.')); 
+            }
         } else {
             $model->password = '';
 
