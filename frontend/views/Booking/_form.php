@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use dosamigos\datetimepicker\DateTimePicker;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Booking */
@@ -16,9 +17,29 @@ use yii\widgets\ActiveForm;
 
     <!--<?= $form->field($model, 'UserID')->textInput() ?>-->
 
-    <?= $form->field($model, 'CheckIn')->textInput() ?>
+    <?= DateTimePicker::widget([
+        'model' => $model,
+        'attribute' => 'CheckIn',
+        'language' => 'en',
+        'size' => 'ms',
+        'clientOptions' => [
+            'autoclose' => true,
+            'format' => 'dd MM yyyy - HH:ii P',
+            'todayBtn' => true
+        ]
+    ]);?>
 
-    <?= $form->field($model, 'CheckOut')->textInput() ?>
+    <?= DateTimePicker::widget([
+        'model' => $model,
+        'attribute' => 'CheckOut',
+        'language' => 'en',
+        'size' => 'ms',
+        'clientOptions' => [
+            'autoclose' => true,
+            'format' => 'dd MM yyyy - HH:ii P',
+            'todayBtn' => true
+        ]
+    ]);?>
 
     <!--<?= $form->field($model, 'CreatedAt')->textInput() ?>-->
 
