@@ -81,8 +81,15 @@ class OrganizationController extends Controller
      */
     public function actionView($id)
     {
+        $org  = $this->findModel($id);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $org->getRooms(),
+        ]);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dataProvider' => $dataProvider
         ]);
     }
 

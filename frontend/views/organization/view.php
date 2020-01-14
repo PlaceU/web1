@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\grid\GridView;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -34,5 +35,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'CreatedAt',
         ],
     ]) ?>
+
+    <h2>Rooms</h2>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'ID',
+            //'OrganizationID',
+            'Name',
+            'Chairs',
+            'CreatedAt',
+
+            //['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
 
 </div>
