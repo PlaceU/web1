@@ -36,10 +36,6 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Organization', 'url' => ['/organization']],
-        ['label' => 'Room', 'url' => ['/room']],
-        ['label' => 'Booking', 'url' => ['/booking']],
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
@@ -47,6 +43,10 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'Home', 'url' => ['/site/index']];
+        $menuItems[] = ['label' => 'Organization', 'url' => ['/organization']];
+        $menuItems[] = ['label' => 'Room', 'url' => ['/room']];
+        $menuItems[] = ['label' => 'Booking', 'url' => ['/booking']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
