@@ -77,8 +77,15 @@ class RoomController extends Controller
      */
     public function actionView($id)
     {
+        $room  = $this->findModel($id);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $room->getBookings(),
+        ]);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dataProvider' => $dataProvider,
         ]);
     }
 

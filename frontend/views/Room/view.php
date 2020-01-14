@@ -1,10 +1,12 @@
 <?php
 
 use yii\helpers\Html;
+use yii\grid\GridView;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Room */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = $model->Name;
 $this->params['breadcrumbs'][] = ['label' => 'Rooms', 'url' => ['index']];
@@ -36,5 +38,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'CreatedAt',
         ],
     ]) ?>
+
+    <h2>Bookings</h2>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'ID',
+            //'RoomID',
+            'UserID',
+            'CheckIn',
+            'CheckOut',
+            'CreatedAt',
+
+            //['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
 
 </div>
