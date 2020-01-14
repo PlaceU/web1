@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
+use common\models\User;
 use common\models\Booking;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -35,9 +36,14 @@ class BookingController extends Controller
      */
     public function actionIndex()
     {
+
+        $user = User::findIdentity(Yii::$app->user->identity->id);
+
         $dataProvider = new ActiveDataProvider([
-            'query' => Booking::find(),
+            'query' => $user->getBookings(),
         ]);
+
+        Yii::debug($user->getBookings());
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
