@@ -9,6 +9,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\ForbiddenHttpException;
 
 /**
  * BookingController implements the CRUD actions for Booking model.
@@ -28,6 +29,27 @@ class BookingController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function beforeAction ( $action ){
+        if (Yii::$app->user->isGuest){
+            throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.')); 
+        }
+
+        if (!isset( $_GET['id'] )){
+            return true;
+        }
+
+        $request = Yii::$app->request;
+        $UserID  = $this->findModel($request->get('id'))->UserID;
+
+        if (Yii::$app->user->identity->id == $UserID){
+            return true;
+        }
+        else
+        {
+            throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.')); 
+        }
     }
 
     /**
@@ -71,8 +93,9 @@ class BookingController extends Controller
     public function actionCreate()
     {
         $model = new Booking();
+        $model->UserID = Yii::$app->user->identity->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && Yii::$app->user->identity->id == $model->UserID && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ID]);
         }
 
@@ -92,7 +115,7 @@ class BookingController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && Yii::$app->user->identity->id == $model->UserID && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ID]);
         }
 

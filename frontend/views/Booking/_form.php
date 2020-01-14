@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'RoomID')->textInput() ?>
 
-    <?= $form->field($model, 'UserID')->textInput() ?>
+    <!--<?= $form->field($model, 'UserID')->textInput() ?>-->
 
     <?= $form->field($model, 'CheckIn')->textInput() ?>
 
