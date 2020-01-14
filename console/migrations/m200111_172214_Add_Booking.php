@@ -13,14 +13,13 @@ class m200111_172214_Add_Booking extends Migration
     public function safeUp()
     {
         $this->execute("
-            SET SQL_MODE='ALLOW_INVALID_DATES';
             CREATE TABLE Booking
             (
                 ID INT NOT NULL AUTO_INCREMENT,
                 RoomID INT NOT NULL,
                 UserID INT NOT NULL,
-                CheckIn TIMESTAMP NOT NULL,
-                CheckOut TIMESTAMP NOT NULL, 
+                CheckIn VARCHAR(64) NOT NULL,
+                CheckOut VARCHAR(64) NOT NULL, 
                 CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (UserID) REFERENCES User (ID) ON DELETE CASCADE,
                 FOREIGN KEY (RoomID) REFERENCES Room (ID) ON DELETE CASCADE,
