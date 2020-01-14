@@ -221,6 +221,15 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getRooms()
+    {
+
+        return $this->hasMany(Room::className(), ['OrganizationID' => 'OrganizationID'])->viaTable('organizationmember', ['UserID' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function isMember($OrganizationID)
     {
         return OrganizationMember::find()->where(['UserID' => $this->id, 'OrganizationID' => $OrganizationID])->exists();

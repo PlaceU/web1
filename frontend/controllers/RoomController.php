@@ -4,10 +4,12 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\Room;
+use common\models\User;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\ForbiddenHttpException;
 
 /**
  * RoomController implements the CRUD actions for Room model.
@@ -29,7 +31,6 @@ class RoomController extends Controller
         ];
     }
 
-    /*
     public function beforeAction ( $action ){
         if (Yii::$app->user->isGuest){
             throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.')); 
@@ -40,10 +41,9 @@ class RoomController extends Controller
         }
 
         $request = Yii::$app->request;
-        $OrganizationID = $request->get('id');
+        $OrganizationID  = $this->findModel($request->get('id'))->OrganizationID;
 
         $user = User::findIdentity(Yii::$app->user->identity->id);
-
         if ($user->isMember($OrganizationID)){
             return true;
         }
@@ -52,7 +52,6 @@ class RoomController extends Controller
             throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.')); 
         }
     }
-    */
 
     /**
      * Lists all Room models.
@@ -60,8 +59,9 @@ class RoomController extends Controller
      */
     public function actionIndex()
     {
+        $user = User::findIdentity(Yii::$app->user->identity->id);
         $dataProvider = new ActiveDataProvider([
-            'query' => Room::find(),
+            'query' => $user->getRooms(),
         ]);
 
         return $this->render('index', [
@@ -91,8 +91,16 @@ class RoomController extends Controller
     {
         $model = new Room();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID]);
+        if ($model->load(Yii::$app->request->post())) {
+            $user = User::findIdentity(Yii::$app->user->identity->id);
+            if ($user->isMember($model->OrganizationID)){
+                if ($model->save()){
+                    return $this->redirect(['view', 'id' => $model->ID]);
+                }
+            }
+            else {
+                throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.')); 
+            }
         }
 
         return $this->render('create', [
@@ -111,8 +119,17 @@ class RoomController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID]);
+        if ($model->load(Yii::$app->request->post()))
+        {
+            $user = User::findIdentity(Yii::$app->user->identity->id);
+            if ($user->isMember($model->OrganizationID)){
+                if ($model->save()){
+                    return $this->redirect(['view', 'id' => $model->ID]);
+                }
+            }
+            else {
+                throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.')); 
+            }
         }
 
         return $this->render('update', [
