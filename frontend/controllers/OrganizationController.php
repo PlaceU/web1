@@ -87,9 +87,14 @@ class OrganizationController extends Controller
             'query' => $org->getRooms(),
         ]);
 
+        $dataProvider1 = new ActiveDataProvider([
+            'query' => $org->getBookings(),
+        ]);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
+            'dataProvider1' => $dataProvider1
         ]);
     }
 

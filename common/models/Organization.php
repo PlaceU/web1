@@ -74,6 +74,14 @@ class Organization extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBookings()
+    {
+        return $this->hasMany(Booking::className(), ['RoomID' => 'ID'])->viaTable('room', ['OrganizationID' => 'ID']);
+    }
+
+    /**
      * Finds user by id
      *
      * @param int $id
