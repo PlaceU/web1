@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\ForbiddenHttpException;
+use frontend\models\JoinForm;
 
 
 /**
@@ -71,6 +72,35 @@ class OrganizationController extends Controller
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    /**
+     * Displays join organization.
+     *
+     * @return mixed
+     */
+    public function actionJoin()
+    {
+        $model = new JoinForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $orgMember = new OrganizationMember();
+            $orgMember->UserID = Yii::$app->user->identity->id;
+
+            if (Organization::find()->where(['name' => $model->orgName])->exists()) {
+                $orgMember->OrganizationID = Organization::find()->where(['name' => $model->orgName])->one()->ID;
+                $orgMember->save();
+
+                Yii::$app->session->setFlash('success', 'You successfully joined the organization');
+            } else {
+                Yii::$app->session->setFlash('error', 'Error Joining Organization');
+            }
+
+            return $this->refresh();
+        } else {
+            return $this->render('joinOrganization', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**

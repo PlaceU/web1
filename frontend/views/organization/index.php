@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Organization', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Join Organization', ['join'], ['class' => 'btn btn-primary']) ?>
     </p>
 
 
