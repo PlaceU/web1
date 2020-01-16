@@ -40,7 +40,7 @@ class LoginCest
         ];
     }
 
-    public function checkEmpty(FunctionalTester $I)
+    public function checkEmptyBackend(FunctionalTester $I)
     {
         $I->submitForm('#login-form', $this->formParams('', ''));
         $I->seeValidationError('Username cannot be blank.');
