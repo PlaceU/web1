@@ -232,7 +232,6 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getBookings()
     {
-
         return $this->hasMany(Booking::className(), ['UserID' => 'id']);
     }
 
