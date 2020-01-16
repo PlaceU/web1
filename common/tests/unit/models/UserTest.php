@@ -33,4 +33,5 @@ class UserTest extends \Codeception\Test\Unit
         $user->username = 'nelsan';
         $this->assertTrue($user->validate(['username']));
     }
+
 }
