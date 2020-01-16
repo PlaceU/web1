@@ -40,14 +40,14 @@ class LoginCest
         ];
     }
 
-    public function checkEmpty(FunctionalTester $I)
+    public function checkEmptyBackend(FunctionalTester $I)
     {
         $I->submitForm('#login-form', $this->formParams('', ''));
         $I->seeValidationError('Username cannot be blank.');
         $I->seeValidationError('Password cannot be blank.');
     }
 
-    public function checkWrongPassword(FunctionalTester $I)
+    public function checkWrongPasswordBackend(FunctionalTester $I)
     {
         $I->submitForm('#login-form', $this->formParams('admin', 'wrong'));
         $I->seeValidationError('Incorrect username or password.');
