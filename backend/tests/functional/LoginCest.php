@@ -23,7 +23,15 @@ class LoginCest
             'user' => [
                 'class' => UserFixture::className(),
                 'dataFile' => codecept_data_dir() . 'login_data.php'
-            ]
+            ],
+            /*'auth_item' => [
+                'class' => UserFixture::className(),
+                'dataFile' => codecept_data_dir() . 'auth_item_data.php'
+            ],
+            'auth_assignment' => [
+                'class' => UserFixture::className(),
+                'dataFile' => codecept_data_dir() . 'auth_assignment_data.php'
+            ]*/
         ];
     }
 
@@ -62,6 +70,7 @@ class LoginCest
         $I->fillField('Username', 'erau');
         $I->fillField('Password', 'password_0');
         $I->click('login-button');
+        $this->amLoggedInAs('admin');
 
         $I->see('Logout (erau)', 'form button[type=submit]');
         $I->dontSeeLink('Login');

@@ -39,7 +39,7 @@ class SignupCest
         $I->see('Email is not a valid email address.', '.help-block');
     }
 
-    public function signupWithIvalidPassword(FunctionalTester $I)
+    public function signupWithInvalidPassword(FunctionalTester $I)
     {
         $I->submitForm(
             $this->formId, [
@@ -50,6 +50,21 @@ class SignupCest
         );
         $I->dontSee('Username cannot be blank.', '.help-block');
         $I->See('Password should contain at least 6 characters.', '.help-block');
+        $I->dontSee('Email cannot be blank.', '.help-block');
+    }
+
+    public function signupWithInvalidUsername(FunctionalTester $I)
+    {
+        $I->submitForm(
+            $this->formId, [
+                'SignupForm[username]'  => 't',
+                'SignupForm[email]'     => 'ttttt@mail.com',
+                'SignupForm[password]'  => 'tester',
+            ]
+        );
+
+        $I->See('Username should contain at least 2 characters.', '.help-block');
+        $I->dontSee('Password cannot be blank.', '.help-block');
         $I->dontSee('Email cannot be blank.', '.help-block');
     }
 
@@ -68,7 +83,7 @@ class SignupCest
             'status' => \common\models\User::STATUS_INACTIVE
         ]);
 
-        //$I->seeEmailIsSent();
-        //$I->see('Thank you for registration. Please check your inbox for verification email.');
+        $I->seeEmailIsSent();
+        $I->see('Thank you for registration. Please check your inbox for verification email.');
     }
 }

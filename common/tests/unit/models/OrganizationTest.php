@@ -38,7 +38,7 @@ class OrganizationTest extends \Codeception\Test\Unit
     {
         $org = new Organization();
         $org->Name = 'Organizacao';
-        $org->save();
+        $org->save('organization');
         $this->tester->seeInDatabase('organization', ['Name' => 'Organizacao']);
     }
 
