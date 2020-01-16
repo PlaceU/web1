@@ -11,5 +11,12 @@ settings:
     memory_limit: 1024M
 modules:
     config:
+        Db:
+              dsn: 'mysql:host=localhost;dbname=test-web;port=3306'
+              user: 'root'
+              password: ''
+              populate: true
+              cleanup: true
+              connect: true
         Yii2:
             configFile: 'config/codeception-local.php'

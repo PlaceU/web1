@@ -17,7 +17,7 @@ class OrganizationTest extends \Codeception\Test\Unit
         return [
             'organization' => [
                 'class' => OrganizationFixture::className(),
-                //'dataFile' => codecept_data_dir() . 'organization.php'
+                //'dataFile' => codecept_data_dir() . 'user.php'
             ]
         ];
     }
@@ -32,6 +32,14 @@ class OrganizationTest extends \Codeception\Test\Unit
 
         $org->Name = 'Organizacao LDA';
         $this->assertTrue($org->validate(['Name']));
+    }
+
+    public function testSaving()
+    {
+        $org = new Organization();
+        $org->Name = 'Organizacao';
+        $org->save();
+        $this->tester->seeInDatabase('organization', ['Name' => 'Organizacao']);
     }
 
 }
