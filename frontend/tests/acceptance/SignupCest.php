@@ -22,6 +22,6 @@ class SignupCest
         $I->dontSee('Email cannot be blank');
         $I->dontSee('Password cannot be blank.');
 
-        $I->see('Create Organization');
+        $I->see('Organization');
     }
 }
