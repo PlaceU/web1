@@ -39,6 +39,20 @@ class SignupCest
         $I->see('Email is not a valid email address.', '.help-block');
     }
 
+    public function signupWithIvalidPassword(FunctionalTester $I)
+    {
+        $I->submitForm(
+            $this->formId, [
+                'SignupForm[username]'  => 'tester',
+                'SignupForm[email]'     => 'ttttt@mail.com',
+                'SignupForm[password]'  => 'tes',
+            ]
+        );
+        $I->dontSee('Username cannot be blank.', '.help-block');
+        $I->See('Password should contain at least 6 characters.', '.help-block');
+        $I->dontSee('Email cannot be blank.', '.help-block');
+    }
+
     public function signupSuccessfully(FunctionalTester $I)
     {
         $I->submitForm($this->formId, [
