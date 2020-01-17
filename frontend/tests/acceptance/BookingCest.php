@@ -36,7 +36,7 @@ class BookingCest
         $I->amOnPage(Url::toRoute('/booking'));
 
         $I->click('Create Booking');
-        $I->wait(2);
+        $I->wait(1);
 
 
         $I->executeJS('document.getElementsByName("Booking[CheckIn]")[0].removeAttribute("readonly")');
@@ -48,7 +48,7 @@ class BookingCest
 
 
         $I->click('Save');
-        $I->wait(2);
+        $I->wait(1);
 
         $I->see('Update');
         $I->see('Delete');

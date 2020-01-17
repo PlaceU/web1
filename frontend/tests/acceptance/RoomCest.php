@@ -32,19 +32,16 @@ class RoomCest
         $I->amOnPage(Url::toRoute('/room'));
 
         $I->click('Create Room');
-        $I->wait(2);
+        $I->wait(1);
 
         $I->fillField('Room[OrganizationID]', 1);
         $I->fillField('Room[Name]', "Sala 4");
         $I->fillField('Room[Chairs]', 20);
-        $I->see('Save');
         
-
-        $I->wait(2);
         $I->click('Save');
 
 
-        $I->wait(2);
+        $I->wait(1);
 
         $I->see('Update');
         $I->see('Delete');

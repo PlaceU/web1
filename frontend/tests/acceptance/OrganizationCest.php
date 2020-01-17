@@ -29,16 +29,13 @@ class OrganizationCest
         $I->amOnPage(Url::toRoute('/organization'));
 
         $I->click('Create Organization');
-
-        $I->wait(2);
+        $I->wait(1);
 
         $I->fillField('Organization[Name]', 'Lab Center');
-        $I->see('Save');
-        
         $I->click('Save');
 
 
-        $I->wait(2);
+        $I->wait(1);
 
         $I->see('Update');
         $I->see('Delete');

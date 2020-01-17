@@ -46,7 +46,7 @@ class LoginCest
             'LoginForm[password]' => 'password_0'
         ));
 
-        $I->wait(2);
+        $I->wait(1);
 
         $I->see('Organization');
     }

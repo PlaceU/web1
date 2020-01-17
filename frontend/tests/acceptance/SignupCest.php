@@ -17,7 +17,7 @@ class SignupCest
             'SignupForm[password]' => 'qwerty'
         ));
 
-        $I->wait(2);
+        $I->wait(1);
         $I->dontSee('Username cannot be blank.');
         $I->dontSee('Email cannot be blank');
         $I->dontSee('Password cannot be blank.');
