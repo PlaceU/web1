@@ -25,7 +25,7 @@ class RoomCest
         ];
     }
 
-    public function testCreateOrganization(AcceptanceTester $I, OrganizationCest $org, LoginCest $login)
+    public function testCreateRoom(AcceptanceTester $I, OrganizationCest $org, LoginCest $login)
     {
         $org->testCreateOrganization($I, $login);
         
