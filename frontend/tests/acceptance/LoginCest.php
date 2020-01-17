@@ -13,7 +13,7 @@ class LoginCest
 
         $I->seeLink('Signup');
         $I->click('Signup');
-        $I->wait(3); // wait for page to be opened
+        $I->wait(2); // wait for page to be opened
 
         $I->see('Please fill out the following fields to signup:');
     }
