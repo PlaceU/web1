@@ -2,6 +2,8 @@
 namespace frontend\tests\acceptance;
 
 use common\fixtures\UserFixture;
+use common\fixtures\OrganizationFixture;
+
 use frontend\tests\AcceptanceTester;
 use yii\helpers\Url;
 
@@ -13,6 +15,9 @@ class OrganizationCest
             'user' => [
                 'class' => UserFixture::className(),
                 'dataFile' => codecept_data_dir() . 'login_data.php',
+            ],
+            'organization' => [
+                'class' => OrganizationFixture::className(),
             ],
         ];
     }
