@@ -20,6 +20,16 @@ criar, apagar ou editar as salas.
  - yii rbac/init
  - yii migrate
 
+## Testing
+ - java -Dwebdriver.chrome.driver=chromedriver.exe -jar selenium-server-standalone.jar -port 4444
+ - Update dbname in 'common/config/test-local.php'
+ - yii_test migrate --migrationPath=@yii/rbac/migrations
+ - yii_test rbac/init
+ - yii_test migrate
+ - yii_test serve --docroot="frontend/web"
+ - ./vendor/bin/codecept run
+ 
+ 
 ## DIRECTORY STRUCTURE
 
 ```

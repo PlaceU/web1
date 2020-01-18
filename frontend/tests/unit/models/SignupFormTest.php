@@ -37,9 +37,10 @@ class SignupFormTest extends \Codeception\Test\Unit
         $user = $this->tester->grabRecord('common\models\User', [
             'username' => 'some_username',
             'email' => 'some_email@example.com',
-            'status' => \common\models\User::STATUS_INACTIVE
+            'status' => \common\models\User::STATUS_ACTIVE
         ]);
 
+        /*
         $this->tester->seeEmailIsSent();
 
         $mail = $this->tester->grabLastSentEmail();
@@ -49,6 +50,7 @@ class SignupFormTest extends \Codeception\Test\Unit
         expect($mail->getFrom())->hasKey(\Yii::$app->params['supportEmail']);
         expect($mail->getSubject())->equals('Account registration at ' . \Yii::$app->name);
         expect($mail->toString())->stringContainsString($user->verification_token);
+        */
     }
 
     public function testNotCorrectSignup()

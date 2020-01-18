@@ -39,7 +39,8 @@ class SignupCest
         $I->see('Email is not a valid email address.', '.help-block');
     }
 
-    public function signupWithInvalidPassword(FunctionalTester $I)
+
+    public function signupWithIvalidPassword(FunctionalTester $I)
     {
         $I->submitForm(
             $this->formId, [
@@ -80,10 +81,7 @@ class SignupCest
         $I->seeRecord('common\models\User', [
             'username' => 'tester',
             'email' => 'tester.email@example.com',
-            'status' => \common\models\User::STATUS_INACTIVE
+            'status' => \common\models\User::STATUS_ACTIVE
         ]);
-
-        $I->seeEmailIsSent();
-        $I->see('Thank you for registration. Please check your inbox for verification email.');
     }
 }
